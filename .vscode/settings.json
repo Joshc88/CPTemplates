@@ -4,6 +4,10 @@
         "regex": "cpp",
         "span": "cpp",
         "utility": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "climits": "cpp",
+        "algorithm": "cpp",
+        "random": "cpp",
+        "limits": "cpp"
     }
 }
