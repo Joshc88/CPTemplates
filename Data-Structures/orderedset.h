@@ -29,7 +29,7 @@ template <typename T> struct ordered_multiset {
     }
 
     T bisect_right(T val) {
-        auto it = ost.upper_bound(make_pair(val, -1));
+        auto it = ost.lower_bound(make_pair(val, 1000000000));
         return it == ost.end() ? ost.size() : ost.order_of_key(*it);
     }
 
