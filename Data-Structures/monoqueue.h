@@ -3,8 +3,8 @@ using namespace std;
 
 template <class T, bool ismax = true> struct MQ {
     const T INF = numeric_limits<T>::max()/2;
-    queue<int> q;
-    deque<int> m;
+    queue<T> q;
+    deque<T> m;
     
     MQ() {}
 
