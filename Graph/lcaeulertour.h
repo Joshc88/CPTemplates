@@ -67,7 +67,7 @@ struct LCA { // 0 or 1-indexed, doesn't matter
     }
 
     int lca(int x, int y) {
-        int a = tin[x], b =  tin[y];
+        int a = tin[x], b = tin[y];
         if (a > b) swap(a, b);
         return st.query(a, b).second;
     }
