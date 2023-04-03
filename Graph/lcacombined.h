@@ -103,4 +103,18 @@ struct LCA { // 0 or 1-indexed, doesn't matter
         if (depth[x] - depth[l] >= k) return ancestor(x, k-1);
         return ancestor(y, d-k+1);
     }
+
+    // Returns a vector of nodes, and a vector of (parent, child) in virtual tree
+    pair<vector<int>, vector<pair<int, int>>> virtual_tree(vector<int> nodes) {
+        auto &&sort_by_preorder = [&](int a, int b) { return tin[a] < tin[b]; };
+        sort(nodes.begin(), nodes.end(), sort_by_preorder);
+        int sz = nodes.size();
+        for (int i=0; i+1<sz; i++) nodes.push_back(lca(nodes[i], nodes[i+1]));
+        sort(nodes.begin(), nodes.end(), sort_by_preorder);
+        nodes.erase(unique(nodes.begin(), nodes.end()), nodes.end());
+        vector<pair<int, int>> res;
+        res.reserve(nodes.size() - 1);
+        for (int i=1; i<nodes.size(); i++) res.emplace_back(lca(nodes[i-1], nodes[i]), nodes[i]);
+        return make_pair(nodes, res);
+    }
 };
