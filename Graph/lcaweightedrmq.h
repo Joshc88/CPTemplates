@@ -3,6 +3,31 @@ using namespace std;
 
 // Performs LCA on a weighted tree
 
+template <class T> struct sparseTable { // 0-indexed
+    T op(T a, T b) {
+        return min(a, b);
+    } 
+
+    int n;
+    vector<vector<T>> st;
+    
+    sparseTable() {}
+
+    sparseTable(vector<T> v) {
+        n = v.size();
+        st = vector<vector<T>>(__lg(n)+1, vector<T>(n));
+        st[0] = v;
+        for (int i=1; i<st.size(); i++) {
+            for (int j=0; j+(1<<i)<=n; j++) st[i][j] = op(st[i-1][j], st[i-1][j+(1<<(i-1))]);
+        }
+    } 
+
+    T query(int l, int r) { // inclusive range
+        int sz = __lg(r-l+1);
+        return op(st[sz][l], st[sz][r-(1<<sz)+1]);
+    }
+};
+
 template<class T = int> struct LCA { // 0 or 1-indexed, doesn't matter
     int n;
     vector<vector<pair<int, T>>> edges;
@@ -71,12 +96,7 @@ template<class T = int> struct LCA { // 0 or 1-indexed, doesn't matter
         nodes.erase(unique(nodes.begin(), nodes.end()), nodes.end());
         vector<pair<int, int>> res;
         res.reserve(nodes.size() - 1);
-        vector<int> st = {nodes[0]};
-        for (int i=1; i<nodes.size(); i++) {
-            while (!is_ancestor(st.back(), nodes[i])) st.pop_back();
-            res.emplace_back(st.back(), nodes[i]);
-            st.push_back(nodes[i]);
-        }
+        for (int i=1; i<nodes.size(); i++) res.emplace_back(lca(nodes[i-1], nodes[i]), nodes[i]);
         return make_pair(nodes, res);
     }
 };
