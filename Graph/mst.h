@@ -73,7 +73,7 @@ template <class T, bool oneindexed = true> struct MST {
 
     MST(int N) {
         n = N;
-        edges.resize(n);
+        edges.reserve(n);
         d = dsu(n+1);
     }
 
