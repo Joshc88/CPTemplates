@@ -4,7 +4,7 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
 
 template <typename T> struct ordered_multiset {
-    ordered_set<pair<int, T>> ost;
+    ordered_set<pair<T, int>> ost;
     map<T, int> freq;
 
     void insert(T val) {
