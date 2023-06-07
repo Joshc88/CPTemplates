@@ -27,11 +27,13 @@ template <class T, bool directed = true> struct dijkstra { // 0 or 1-indexed, do
         if (!directed) edges[to].emplace_back(from, dist);
     }
 
-    vector<T> dist(int source) {
+    vector<T> dist(vector<int> sources) {
         vector<T> res(n+1, INF);
         priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T, int>>> pq;
-        res[source] = 0;
-        pq.push({0, source});
+        for (int source : sources) {
+            res[source] = 0;
+            pq.push({0, source});
+        }
         while (!pq.empty()) {
             auto cur = pq.top();
             pq.pop();
@@ -50,7 +52,7 @@ template <class T, bool directed = true> struct dijkstra { // 0 or 1-indexed, do
     }
 
     T dist(int source, int dest) {
-        return dist(source)[dest];
+        return dist({source})[dest];
     }
 
     pair<T, vector<int>> path(int source, int dest) {
