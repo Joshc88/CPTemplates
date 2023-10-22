@@ -30,10 +30,12 @@ struct Math {
     }
 
     long long comb(int n, int k) {
+        if (n < k) return 0;
         return mul(mul(fact[n], inv[k]), inv[n-k]);
     }
 
     long long perm(int n, int k) {
+        if (n < k) return 0;
         return mul(fact[n], inv[n-k]);
     }
     
