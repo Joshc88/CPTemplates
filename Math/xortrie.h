@@ -1,9 +1,7 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-template<class T = int, int NUM_BITS = 31> struct xortrie {
+template<class T = int> struct xortrie {
     vector<array<int, 2>> trie = {{0, 0}};
     vector<int> cnt = {0};
+    int NUM_BITS = 31;
 
     xortrie() {}
 
