@@ -23,16 +23,6 @@ template <typename T> struct ordered_multiset {
         return ost.find_by_order(val)->first;
     }
 
-    T bisect_left(T val) {
-        auto it = ost.lower_bound(make_pair(val, -1));
-        return it == ost.end() ? ost.size() : ost.order_of_key(*it);
-    }
-
-    T bisect_right(T val) {
-        auto it = ost.lower_bound(make_pair(val, 1000000000));
-        return it == ost.end() ? ost.size() : ost.order_of_key(*it);
-    }
-
     int size() {
         return ost.size();
     }
